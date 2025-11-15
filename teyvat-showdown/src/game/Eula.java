@@ -4,7 +4,7 @@ public class Eula extends Character {
 	private double freezeChance; // solo para Eula
 	
 	public Eula () {
-		super("Eula", 105, 27, 18, 0.85, Element.CRYO, 2, 2);
+		super("Eula", 110, 110, 23, 20, 0.85, Element.CRYO, 2, 2);
 		this.freezeChance = 0.30;
 	}
 	
@@ -15,7 +15,7 @@ public class Eula extends Character {
 	@Override
 	protected void performUltimate(Character enemy) {
 		// TODO Auto-generated method stub
-		
+		final double eulaDamageMultiplier = 1.3;
 		/* 
 		 Cryo
 			
@@ -29,7 +29,7 @@ public class Eula extends Character {
 		 * */
 		
 		int baseDamage = this.getBaseDamage(enemy);
-		int modifiedAttack = (int) (baseDamage * 1.3);;
+		int modifiedAttack = (int) (baseDamage * eulaDamageMultiplier);;
 		
 		enemy.takeDamage(modifiedAttack);
 		if (Math.random() <= this.freezeChance) {

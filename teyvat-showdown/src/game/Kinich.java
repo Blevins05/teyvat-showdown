@@ -2,7 +2,7 @@ package game;
 
 public class Kinich extends Character{
 	public Kinich() {
-		   super("Kinich", 98, 24, 16, 0.92, Element.DENDRO, 2, 2);
+		   super("Kinich", 98, 98, 23, 20, 0.92, Element.DENDRO, 2, 2);
 	}
 
 	@Override

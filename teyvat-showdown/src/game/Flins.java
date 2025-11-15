@@ -3,7 +3,7 @@ package game;
 public class Flins extends Character {
 	private double critChance = 0.25;
 	public Flins () {
-		super("Flins", 105, 27, 18, 0.85, Element.ELECTRO, 2, 2);
+		super("Flins", 100, 100, 32, 17, 0.85, Element.ELECTRO, 3, 3);
 	}
 	
 	public String getName() {
@@ -13,7 +13,7 @@ public class Flins extends Character {
 	@Override
 	protected void performUltimate(Character enemy) {
 		// TODO Auto-generated method stub
-		
+		final double flinsDamageMultiplier = 1.8;
 		/*
 		   Electro (Flins)
 			Nombre: Tormenta Eléctrica
@@ -27,7 +27,7 @@ public class Flins extends Character {
 		 */
 		
 		int baseDamage = this.getBaseDamage(enemy);
-		int modifiedAttack = (int) (baseDamage * 1.8);
+		int modifiedAttack = (int) (baseDamage * flinsDamageMultiplier);
 		double critDamageChance = Math.random();
 		
 		if (critDamageChance <= this.critChance) {

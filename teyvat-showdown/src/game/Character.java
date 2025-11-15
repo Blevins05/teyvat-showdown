@@ -7,18 +7,20 @@ import java.util.List;
 public abstract class Character {
 	protected String name;
 	protected Integer healthPoints;
+	protected Integer maxHp;
 	protected Integer baseAttack;
 	protected Integer defense;
 	protected double precision;
 	protected Element element;
 	protected Integer turnsUntilUltimate;
 	protected Integer ultimateCooldown;
-	protected List<Effect> activeEffects = new ArrayList<>();
+	protected ArrayList<Effect> activeEffects = new ArrayList<>();
 
 
-	public Character(String name, int hp, int atk, int def, double precision, Element element, int turnsRemaining, int ultimateCooldown) {
+	public Character(String name, int maxHp, int hp, int atk, int def, double precision, Element element, int turnsRemaining, int ultimateCooldown) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
+		this.maxHp = maxHp;
 		this.healthPoints = hp; 
 		this.baseAttack = atk;
 		this.defense = def;
@@ -26,12 +28,17 @@ public abstract class Character {
 		this.element = element;
 		this.turnsUntilUltimate = turnsRemaining;
 		this.ultimateCooldown = ultimateCooldown;
+		this.activeEffects = new ArrayList<Effect>();
 	
 	}
 	
 	// getters
 	public String getName() {
 		return this.name;
+	}
+	
+	public int getMaxHp() {
+	    return this.maxHp;
 	}
 	
 	public int getHP() {
@@ -91,6 +98,7 @@ public abstract class Character {
 	    double hitChance = Math.random();
 	    if (hitChance > this.precision) {
 	        System.out.println(": " + this.getName() + " missed the attack!");
+	        this.reduceCooldown(); 
 	        return;
 	    }
 	    
@@ -98,26 +106,33 @@ public abstract class Character {
 	    double randomFactor = 0.9 + Math.random() * 0.2; // 90%-110%
 	    int damage = (int) (baseDamage * randomFactor);
 	    
-	    System.out.println(": " + this.getName() + " attacks " + target.getName() + "!");
+	    System.out.println(": " + this.getName() + " attacks " + target.getName() + " and deals " + damage + " damage");
 	    target.takeDamage(damage);
+	    
+	    this.reduceCooldown(); 
 	}
 	
 	public void takeDamage(Integer damage) {
 	    this.healthPoints -= damage;
 	    if (this.isDead()) {
-	        System.out.println(this.getName() + " is dead!");
+	        System.out.println(":" + this.getName() + " is dead!");
 	    } else {
-	        System.out.println(this.getName() + " took " + damage + " damage! [HP: " + this.healthPoints + "]");
+	        System.out.println(": " + this.getName() + " took " + damage + " damage! [HP: " + this.healthPoints + "]");
 	    }
 	}
 	
 	public void heal(Item item) {
-		this.healthPoints += item.getHealAmount();
-		  System.out.println(this.getClass().getSimpleName() + " used " 
+		this.healthPoints = Math.min(this.healthPoints + item.getHealAmount(), this.maxHp);
+		  System.out.println(":" + this.getName() + " used " 
 		+ item.name() + " and recovers " + item.getHealAmount() + " HP!");
 	}
 	
-
+	public void reduceCooldown() {
+	    if (turnsUntilUltimate > 0) {
+	        turnsUntilUltimate--;
+	    }
+	}
+	
 	public boolean isDead() {
 		return this.healthPoints <= 0;
 	}
@@ -142,17 +157,29 @@ public abstract class Character {
 	
 	public boolean processEffects() {
 	    boolean loseTurn = false;
-
 	    Iterator<Effect> iterator = activeEffects.iterator();
+	    
 	    while(iterator.hasNext()) {
 	        Effect e = iterator.next();
-	        if (e instanceof Freeze) loseTurn = true; 
+	        
+	        // Aplicar el efecto
+	        e.apply(this);
+	        
+	        // Si está congelado, pierde turno
+	        if (e instanceof Freeze) {
+	            loseTurn = true;
+	        }
+	        
+	        // Reducir duración
 	        e.decreaseDuration();
-	        if (e.isExpired()) iterator.remove(); 
+	        
+	        // Eliminar si expiró
+	        if (e.isExpired()) {
+	            iterator.remove();
+	        }
 	    }
-
-	    return loseTurn; 
+	    
+	    return loseTurn;
 	}
-
 	
 }
