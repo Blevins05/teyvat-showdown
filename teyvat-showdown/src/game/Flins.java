@@ -27,7 +27,7 @@ public class Flins extends Character {
 		 */
 		
 		int baseDamage = this.getBaseDamage(enemy);
-		int modifiedAttack = (int) ((int) (double) (baseDamage) * 1.8);
+		int modifiedAttack = (int) (baseDamage * 1.8);
 		double critDamageChance = Math.random();
 		
 		if (critDamageChance <= this.critChance) {

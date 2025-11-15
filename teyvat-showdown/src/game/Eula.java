@@ -21,7 +21,7 @@ public class Eula extends Character {
 			
 			Nombre: Congelación Ártica
 			
-			Efecto: Daño moderado (1.2× ataque base)
+			Efecto: Daño moderado (1.3× ataque base)
 			
 			Extra: 30% de probabilidad de congelar al enemigo 1 turno
 			
@@ -29,7 +29,7 @@ public class Eula extends Character {
 		 * */
 		
 		int baseDamage = this.getBaseDamage(enemy);
-		int modifiedAttack = (int) ((int) (double) (baseDamage) * 1.2);
+		int modifiedAttack = (int) (baseDamage * 1.3);;
 		
 		enemy.takeDamage(modifiedAttack);
 		if (Math.random() <= this.freezeChance) {
