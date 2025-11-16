@@ -11,6 +11,6 @@ public class Burn extends Effect{
 	@Override
     public void apply(Character target) {
         target.takeDamage(this.damagePerTurn);
-        System.out.println(target.getName() + "is burned and took" + this.damagePerTurn + "damage");
+        System.out.println(target.getName() + " is burned and took " + this.damagePerTurn + " damage");
     }
 }

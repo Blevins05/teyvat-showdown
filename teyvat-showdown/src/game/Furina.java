@@ -2,13 +2,11 @@ package game;
 
 public class Furina extends Character {
 	public Furina() {
-	    super("Furina",115, 115, 20, 22, 0.90, Element.HYDRO, 3, 3);
+	    super("Furina",120, 120, 20, 22, 0.90, Element.HYDRO, 3, 3);
 	}
-	
+	 
 	@Override
 	protected void performUltimate(Character enemy) {
-		// TODO Auto-generated method stub
-		
 		/*  
 		 Ulti de Furina:
 		 
@@ -25,13 +23,13 @@ public class Furina extends Character {
 		enemy.takeDamage(baseDamage);
 		activeEffects.removeIf(e -> e instanceof Burn || e instanceof Bloom || e instanceof Freeze);
 		
-        int healAmount = (int) (this.maxHp * 0.30); // 34 HP aprox
+        int healAmount = (int) (this.maxHp * 0.30); 
         int newHp = Math.min(this.healthPoints + healAmount, this.maxHp);
         
         int actualHealed = newHp - this.healthPoints;
         this.healthPoints = newHp;
         
-        System.out.println("Furina healed herself and has now" + this.healthPoints + "/" + this.maxHp);
+        System.out.println("Furina healed herself and has now " + this.healthPoints + "/" + this.maxHp);
         
 	}
 }

@@ -15,10 +15,10 @@ public abstract class Character {
 	protected Integer turnsUntilUltimate;
 	protected Integer ultimateCooldown;
 	protected ArrayList<Effect> activeEffects = new ArrayList<>();
+	protected ArrayList<Item> inventory = new ArrayList<>();
 
 
 	public Character(String name, int maxHp, int hp, int atk, int def, double precision, Element element, int turnsRemaining, int ultimateCooldown) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.maxHp = maxHp;
 		this.healthPoints = hp; 
@@ -29,6 +29,11 @@ public abstract class Character {
 		this.turnsUntilUltimate = turnsRemaining;
 		this.ultimateCooldown = ultimateCooldown;
 		this.activeEffects = new ArrayList<Effect>();
+		
+	    this.inventory = new ArrayList<>();
+        inventory.add(Item.SMALL_POTION);
+        inventory.add(Item.MEDIUM_POTION);
+        inventory.add(Item.LARGE_POTION);
 	
 	}
 	
@@ -68,6 +73,10 @@ public abstract class Character {
 	public int getUltimateCooldown() {
 		return this.ultimateCooldown;
 	}
+	
+	 public ArrayList<Item> getInventory() {
+	    return inventory;
+	 }
 
 	// setters
 	public void setHP(int hp) {
@@ -121,6 +130,17 @@ public abstract class Character {
 	    }
 	}
 	
+	 public void useItem(Item item) {
+        if (inventory.contains(item)) {
+            this.heal(item);
+            inventory.remove(item); 
+            System.out.println(item.name() + " consumed!");
+            
+        } else {
+            System.out.println("You don't have that item!");
+        }
+    }
+	 
 	public void heal(Item item) {
 		this.healthPoints = Math.min(this.healthPoints + item.getHealAmount(), this.maxHp);
 		  System.out.println(":" + this.getName() + " used " 
@@ -150,9 +170,9 @@ public abstract class Character {
 
 	protected abstract void performUltimate(Character enemy);
 	
+	// solucionado este bug, el efecto se aplica en cada ronda, no al añadirlo a los efectos activos del pj.
 	public void applyEffect(Effect effect) {
 	    activeEffects.add(effect);
-	    effect.apply(this); 
 	}
 	
 	public boolean processEffects() {
@@ -162,19 +182,16 @@ public abstract class Character {
 	    while(iterator.hasNext()) {
 	        Effect e = iterator.next();
 	        
-	        // Aplicar el efecto
 	        e.apply(this);
 	        
-	        // Si está congelado, pierde turno
 	        if (e instanceof Freeze) {
 	            loseTurn = true;
 	        }
 	        
-	        // Reducir duración
 	        e.decreaseDuration();
 	        
-	        // Eliminar si expiró
 	        if (e.isExpired()) {
+	            System.out.println(e.getClass().getSimpleName() + " expired on " + this.getName());
 	            iterator.remove();
 	        }
 	    }

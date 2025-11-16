@@ -7,8 +7,6 @@ public class Kinich extends Character{
 
 	@Override
 	protected void performUltimate(Character enemy) {
-		// TODO Auto-generated method stub
-		
 		/* 
 		 * Dendro
 

@@ -11,6 +11,6 @@ private int damagePerTurn;
 	@Override
     public void apply(Character target) {
         target.takeDamage(this.damagePerTurn);
-        System.out.println(target.getName() + "is poisoned and took" + this.damagePerTurn + "damage");
+        System.out.println(target.getName() + " is poisoned and took " + this.damagePerTurn + " damage");
     }
 }

@@ -8,7 +8,6 @@ public class Torch extends Character{
 
 	@Override
 	protected void performUltimate(Character enemy) {
-		// TODO Auto-generated method stub
 		final double torchDamageMultiplier = 1.5;
 		/* Ulti: 
 			Nombre: Explosión Ígnea

@@ -9,6 +9,6 @@ public class Freeze extends Effect {
     @Override
     public void apply(Character target) {
         // “Congelado” simplemente hace que pierda el turno
-        System.out.println(target.getName() + " está congelado y no puede actuar!");
+        System.out.println(target.getName() + " is frozen");
     }
 }

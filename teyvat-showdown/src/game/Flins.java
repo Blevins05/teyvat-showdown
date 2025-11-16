@@ -12,7 +12,6 @@ public class Flins extends Character {
 
 	@Override
 	protected void performUltimate(Character enemy) {
-		// TODO Auto-generated method stub
 		final double flinsDamageMultiplier = 1.8;
 		/*
 		   Electro (Flins)

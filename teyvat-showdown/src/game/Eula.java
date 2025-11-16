@@ -14,7 +14,6 @@ public class Eula extends Character {
 
 	@Override
 	protected void performUltimate(Character enemy) {
-		// TODO Auto-generated method stub
 		final double eulaDamageMultiplier = 1.3;
 		/* 
 		 Cryo
