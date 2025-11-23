@@ -4,8 +4,12 @@ public class Eula extends Character {
 	private double freezeChance; // solo para Eula
 	
 	public Eula () {
-		super("Eula", 110, 110, 23, 20, 0.85, Element.CRYO, 2, 2);
+		super("Eula", 115, 115, 23, 20, 0.85, Element.CRYO, 2, 2);
 		this.freezeChance = 0.30;
+		
+		// nuevos buffs a eula:
+		// HP: 110→115 
+	    // DEF: 20→22 
 	}
 	
 	public String getName() {

@@ -3,7 +3,11 @@ package game;
 public class Flins extends Character {
 	private double critChance = 0.25;
 	public Flins () {
-		super("Flins", 100, 100, 32, 17, 0.85, Element.ELECTRO, 3, 3);
+		super("Flins", 100, 100, 30, 15, 0.85, Element.ELECTRO, 3, 3);
+		
+		// nerfs que le he hecho porque estaba rotisimo:
+	    // ATK: 32→30
+	    // DEF: 17→15 
 	}
 	
 	public String getName() {
