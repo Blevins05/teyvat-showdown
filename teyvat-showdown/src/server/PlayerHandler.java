@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 import game.Character;
 import game.Eula;
 import game.Flins;
@@ -40,12 +41,12 @@ public class PlayerHandler implements Runnable {
 		try {
 
             sendMessage("Connected to server!\n");
-            out.flush();
+            flushWriter();
             selectedCharacter = selectCharacter();
             
             sendMessage("\nYou selected: " + selectedCharacter.getName());
             sendMessage("Waiting for opponent...\n");
-            out.flush();
+            flushWriter();;
             
             matchMaking.addPlayer(this);
             
@@ -75,7 +76,7 @@ public class PlayerHandler implements Runnable {
         sendMessage("   HP: 125 | ATK: 20 | DEF: 24");
         sendMessage("");
         sendMessage("Enter choice (1-5): ");
-        out.flush();
+        flushWriter();
         String choice = in.readLine();
 
         switch (choice) {
@@ -86,7 +87,7 @@ public class PlayerHandler implements Runnable {
             case "5": return new Furina();
             default:
                 sendMessage("Invalid input. Default character is Flins");
-                out.flush();
+                flushWriter();
                 return new Flins();
         }
 
@@ -98,6 +99,10 @@ public class PlayerHandler implements Runnable {
 		
     public String receiveMessage() throws IOException {
         return in.readLine();
+    }
+    
+    public void flushWriter() {
+    	out.flush();
     }
     
     public Character getCharacter() {

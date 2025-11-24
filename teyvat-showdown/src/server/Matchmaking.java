@@ -39,6 +39,7 @@ public class Matchmaking {
 			OnlineBattle ob = new OnlineBattle(player1, player2);
 			ob.start();
 		});
+		battleThread.start();
 	}
 	
 	
