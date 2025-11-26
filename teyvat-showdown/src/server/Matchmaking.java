@@ -7,10 +7,10 @@ public class Matchmaking {
 	
 	private BlockingQueue<PlayerHandler> queue = new LinkedBlockingQueue<>();
 	
-	public void addPlayer(PlayerHandler pl) {
+	public synchronized void addPlayer(PlayerHandler pl) { // es obligatorio synchronized, si no, se me pueden colar 2 handlers a la vez y que el tamaño no sea 2.
 		try {
 			System.out.println("New Player added to matchmaking queue");
-			queue.add(pl);
+			queue.put(pl);
 			
 			if (queue.size() >= 2) {
 				PlayerHandler player1 = queue.take();

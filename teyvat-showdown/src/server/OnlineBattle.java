@@ -1,6 +1,8 @@
  package server;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 import game.Character;
@@ -31,6 +33,15 @@ public class OnlineBattle {
 
 	public void start() {
 		// TODO Auto-generated method stub
+		
+		
+		if (currentCharacter == p1) {
+	        broadcast("Player 1 (" + p1.getName() + ") starts first!");
+	    } else {
+	        broadcast("Player 2 (" + p2.getName() + ") starts first!");
+	    }
+	    broadcast("");
+		
 		while (!gameOver) {
 			playTurn();
 			
@@ -93,21 +104,49 @@ public class OnlineBattle {
 		
 	}
 	
-	  private boolean processAction(String choice, Character attacker, Character defender, PlayerHandler currentHandler, PlayerHandler enemyHandler) {
-	        switch (choice) {
-	            case "1":
-	                attacker.attack(defender);
-	                return true;
-	            case "2":
-	                attacker.ultimate(defender);
-	                return true;
-	            case "3":
-	                return openInventory(attacker, currentHandler, enemyHandler); 
-	            default:
-	                broadcast("Invalid choice. Try again.");
-	                return false;
-	        }
-	    }
+	private boolean processAction(String choice, Character attacker, Character defender, PlayerHandler currentHandler, PlayerHandler enemyHandler) {
+		
+		// solucion (temporal) que he encontrado para reenviar info de la partida a ambos jugadores.
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(baos);
+		PrintStream old = System.out;
+		System.setOut(ps);
+
+		try {
+			switch (choice) {
+			case "1":
+				attacker.attack(defender);
+				break;
+			case "2":
+				attacker.ultimate(defender);
+				break;
+			case "3":
+				return openInventory(attacker, currentHandler, enemyHandler);
+			default:
+				broadcast("Invalid choice. Try again.");
+				return false;
+		}
+
+		System.out.flush();
+		String output = baos.toString();
+		
+
+		if (!output.isEmpty()) {
+			String[] lines = output.split("\n");
+		for (String line : lines) {
+			if (!line.trim().isEmpty()) {
+		  broadcast(line);
+				}
+			}
+		}
+		
+		return true;
+		
+		} 
+		finally {
+		System.setOut(old); // Restaurar System.out original
+		}
+}
 	
 	private boolean openInventory(Character attacker, PlayerHandler currentHandler, PlayerHandler enemyHandler) {
 		List<Item> inv = attacker.getInventory();

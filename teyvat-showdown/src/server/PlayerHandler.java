@@ -29,7 +29,7 @@ public class PlayerHandler implements Runnable {
 		try 
 		{
 			in = new BufferedReader(new InputStreamReader(player.getInputStream()));
-			out = new PrintWriter(new OutputStreamWriter(player.getOutputStream()));
+			out = new PrintWriter(new OutputStreamWriter(player.getOutputStream()), true); // asi no hay q estar haciendo flush cada 2x3
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -41,12 +41,10 @@ public class PlayerHandler implements Runnable {
 		try {
 
             sendMessage("Connected to server!\n");
-            flushWriter();
             selectedCharacter = selectCharacter();
             
             sendMessage("\nYou selected: " + selectedCharacter.getName());
             sendMessage("Waiting for opponent...\n");
-            flushWriter();;
             
             matchMaking.addPlayer(this);
             
@@ -76,7 +74,6 @@ public class PlayerHandler implements Runnable {
         sendMessage("   HP: 125 | ATK: 20 | DEF: 24");
         sendMessage("");
         sendMessage("Enter choice (1-5): ");
-        flushWriter();
         String choice = in.readLine();
 
         switch (choice) {
@@ -87,7 +84,6 @@ public class PlayerHandler implements Runnable {
             case "5": return new Furina();
             default:
                 sendMessage("Invalid input. Default character is Flins");
-                flushWriter();
                 return new Flins();
         }
 
@@ -100,10 +96,7 @@ public class PlayerHandler implements Runnable {
     public String receiveMessage() throws IOException {
         return in.readLine();
     }
-    
-    public void flushWriter() {
-    	out.flush();
-    }
+ 
     
     public Character getCharacter() {
         return selectedCharacter;
