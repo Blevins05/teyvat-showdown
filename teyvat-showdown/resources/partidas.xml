@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<games>
+	<game date="2025-11-27" rounds="5">
+		<player character="Flins" name="Hugo" remaining_hp="35"
+			result="winner" />
+		<player character="Torch" name="Bot" remaining_hp="0"
+			result="loser" />
+	</game>
+</games>

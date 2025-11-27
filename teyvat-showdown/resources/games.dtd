@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT games (game*)>
+<!ELEMENT game (player, player)>
+<!ELEMENT player EMPTY>
+
+<!ATTLIST game 
+	date CDATA #REQUIRED
+	rounds CDATA #REQUIRED>
+	
+<!ATTLIST player
+	name CDATA #REQUIRED
+	character CDATA #REQUIRED
+	result (winner|loser) #REQUIRED
+	remaining_hp CDATA #REQUIRED>

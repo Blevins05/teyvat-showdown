@@ -16,6 +16,7 @@ import game.Torch;
 
 public class PlayerHandler implements Runnable {
 	
+	private String playerName;
 	private Socket player;
 	private Matchmaking matchMaking;
 	private BufferedReader in;
@@ -41,9 +42,19 @@ public class PlayerHandler implements Runnable {
 		try {
 
             sendMessage("Connected to server!\n");
+            
+            
+            sendMessage("Please enter your name");
+            String playerName = in.readLine();
+            this.playerName = playerName;
+            sendMessage("Welcome " + this.playerName);
+            
+            
+            
+            
             selectedCharacter = selectCharacter();
             
-            sendMessage("\nYou selected: " + selectedCharacter.getName());
+            sendMessage(playerName + " selected: " + selectedCharacter.getName());
             sendMessage("Waiting for opponent...\n");
             
             matchMaking.addPlayer(this);
@@ -100,6 +111,10 @@ public class PlayerHandler implements Runnable {
     
     public Character getCharacter() {
         return selectedCharacter;
+    }
+    
+    public String getPlayerName() {
+    	return playerName;
     }
     
     public Socket getSocket() {

@@ -18,8 +18,7 @@ public class GameClient {
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              Scanner scanner = new Scanner(System.in)) {
             
-            System.out.println("Connected to server!\n");
-            
+
             // este hilo se encarga de recibir y enviar mensajes al gestor de las partidas
             Thread readerThread = new Thread(() -> {
                 try {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
+import database.MatchHistory;
 import game.Character;
 import game.Item;
 
@@ -36,9 +37,9 @@ public class OnlineBattle {
 		
 		
 		if (currentCharacter == p1) {
-	        broadcast("Player 1 (" + p1.getName() + ") starts first!");
+	        broadcast(player1Handler.getPlayerName() + "(" + p1.getName() + ")" + " starts");
 	    } else {
-	        broadcast("Player 2 (" + p2.getName() + ") starts first!");
+	        broadcast(player2Handler.getPlayerName() + "(" + p2.getName() + ")" + " starts");
 	    }
 	    broadcast("");
 		
@@ -64,8 +65,8 @@ public class OnlineBattle {
 	    Character opponent = (currentCharacter == p1) ? p2 : p1;
 	    boolean actionTaken = false;
 	    
-		currentHandler.sendMessage("Your turn " + currentCharacter.getName());
-		opponentHandler.sendMessage(currentCharacter.getName() + "'s turn. Waiting...");
+		currentHandler.sendMessage("Your turn, " + currentHandler.getPlayerName() + "(" + currentCharacter.getName() + ")");
+		opponentHandler.sendMessage(currentHandler.getPlayerName() + "(" + currentCharacter.getName() + ")" + "'s turn. Waiting...");
 		
 		showGameState();
 		
@@ -73,8 +74,8 @@ public class OnlineBattle {
 	    boolean skipped = currentCharacter.processEffects();
 	    
 	    if (skipped) {
-	    	currentHandler.sendMessage("You are frozen and skip the turn!");
-	        opponentHandler.sendMessage(currentCharacter.getName() + " is FROZEN and skips the turn!");
+	    	currentHandler.sendMessage("You were frozen by Eula and you lost your turn...");
+	        opponentHandler.sendMessage(currentCharacter.getName() + "(" + currentHandler.getPlayerName() + ")" + " is FROZEN and skips the turn!");
 	        return; 
 	    }
 	    
@@ -93,9 +94,9 @@ public class OnlineBattle {
 				// TODO Auto-generated catch block
 				  e.printStackTrace();
 				  if (!currentHandler.getSocket().isClosed()) {
-			            currentHandler.sendMessage("Your opponent disconnected. You win by default!");
+			            currentHandler.sendMessage("Your opponent" + opponentHandler.getPlayerName() + " disconnected. You win by default!");
 			       } else {
-			            opponentHandler.sendMessage("Your opponent disconnected. You win by default!");
+			            opponentHandler.sendMessage("Your opponent" + currentHandler.getPlayerName() + " disconnected. You win by default!");
 			        }
 				  	gameOver = true;
 			}
@@ -144,13 +145,13 @@ public class OnlineBattle {
 		
 		} 
 		finally {
-		System.setOut(old); // Restaurar System.out original
+			System.setOut(old); 
 		}
 }
 	
 	private boolean openInventory(Character attacker, PlayerHandler currentHandler, PlayerHandler enemyHandler) {
 		List<Item> inv = attacker.getInventory();
-		enemyHandler.sendMessage("Your opponent has opened his inventory...");
+		enemyHandler.sendMessage("Your opponent" + currentHandler.getPlayerName() + "(" + currentCharacter.getName() + ")" + "has opened his inventory...");
 	    if (inv.isEmpty()) {
 	        currentHandler.sendMessage("You ran out of potions...");
 	        return false;
@@ -196,15 +197,25 @@ public class OnlineBattle {
 		broadcast("-------BATTLE ENDED!--------");
 		broadcast("WINNER: " + winner.getName());
 		broadcast("LOSER: " + loser.getName());
-	       
-	    broadcast("Total Game Rounds: " + Math.floor(totalTurns / 2 + 1));
+		
+		String winnerName = (winner == p1) ? player1Handler.getPlayerName() : player2Handler.getPlayerName();
+	    String loserName = (winner == p1) ? player2Handler.getPlayerName() : player1Handler.getPlayerName();
+	    int winnerHP = winner.getHP();
+	    
+        int rounds =  (int) Math.floor(totalTurns / 2 + 1);
+	    broadcast("Total Game Rounds: " + rounds);
+	    
+	    MatchHistory.saveMatch(
+	            winnerName, winner.getName(), loserName, loser.getName(), "winner",
+	            "loser", winnerHP, 0, rounds
+	        );
 	}
 	
 	public void showGameState() {
-	  broadcast("\nBATTLE STATUS:");
-       broadcast("Player 1 (" + p1.getName() + "): HP " + p1.getHP() + "/" + p1.getMaxHp() + 
+	  broadcast("BATTLE STATUS:");
+       broadcast(this.player1Handler.getPlayerName() + "(" + p1.getName() + "): HP " + p1.getHP() + "/" + p1.getMaxHp() + 
                   " | Ultimate: " + (p1.getTurnsUntilUltimate() == 0 ? "CHARGED" : p1.getTurnsUntilUltimate() + " turns"));
-       broadcast("Player 2 (" + p2.getName() + "): HP " + p2.getHP() + "/" + p2.getMaxHp() + 
+       broadcast(this.player2Handler.getPlayerName() + "(" + p2.getName() + "): HP " + p2.getHP() + "/" + p2.getMaxHp() + 
                   " | Ultimate: " + (p2.getTurnsUntilUltimate() == 0 ? "CHARGED" : p2.getTurnsUntilUltimate() + " turns"));
 	}
 	
