@@ -1,9 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<games>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><games>
 	<game date="2025-11-27" rounds="5">
-		<player character="Flins" name="Hugo" remaining_hp="35"
-			result="winner" />
-		<player character="Torch" name="Bot" remaining_hp="0"
-			result="loser" />
+		<player character="Flins" name="Hugo" remaining_hp="35" result="winner"/>
+		<player character="Torch" name="Bot" remaining_hp="0" result="loser"/>
 	</game>
-</games>
+	<game date="2025-11-30" rounds="6">
+		<player character="Kinich" name="Xabier" remaining_hp="23" result="winner"/>
+		<player character="Flins" name="Hugo" remaining_hp="0" result="loser"/>
+	</game>
+	<game date="2025-12-03" rounds="5">
+		<player character="Kinich" name="Prueba" remaining_hp="20" result="winner"/>
+		<player character="Flins" name="Hugo" remaining_hp="0" result="loser"/>
+	</game>
+	<game date="2025-12-03" rounds="9">
+		<player character="Flins" name="Hugo" remaining_hp="6" result="winner"/>
+		<player character="Furina" name="bot" remaining_hp="0" result="loser"/>
+	</game>
+<game date="2025-12-03" rounds="6"><player character="Kinich" name="Jugador2" remaining_hp="-19" result="winner"/><player character="Flins" name="Hugo" remaining_hp="0" result="loser"/></game></games>
