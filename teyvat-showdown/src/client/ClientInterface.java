@@ -32,7 +32,7 @@ public class ClientInterface extends JFrame {
             case "Flins": return 100;
             case "Eula": return 115;
             case "Kinich": return 98;
-            case "Torch": return 105;
+            case "Durin": return 105;
             case "Furina": return 125;
             default: return 100;
         }
@@ -75,14 +75,14 @@ public class ClientInterface extends JFrame {
             "Flins (ELECTRO)",
             "Eula (CRYO)", 
             "Kinich (DENDRO)",
-            "Torch (PYRO)",
+            "Durin (PYRO)",
             "Furina (HYDRO)"
         };
         
         int choice = JOptionPane.showOptionDialog(
             null,
             "SELECT YOUR FIGHTER",
-            "⚔ Character Selection",
+            "Character Selection",
             JOptionPane.DEFAULT_OPTION,
             JOptionPane.PLAIN_MESSAGE,
             null,
@@ -92,7 +92,7 @@ public class ClientInterface extends JFrame {
         
         if (choice == -1) choice = 0; // Default
         
-        String[] names = {"Flins", "Eula", "Kinich", "Torch", "Furina"};
+        String[] names = {"Flins", "Eula", "Kinich", "Durin", "Furina"};
         return names[choice];
     }
 
@@ -101,7 +101,7 @@ public class ClientInterface extends JFrame {
             case "Flins": return 1;
             case "Eula": return 2;
             case "Kinich": return 3;
-            case "Torch": return 4;
+            case "Durin": return 4;
             case "Furina": return 5;
             default: return 1;
         }
@@ -315,7 +315,7 @@ public class ClientInterface extends JFrame {
     private void detectAndLoadOpponent(String message) {
         if (enemySprite.getIcon() != null) return;
         
-        String[] chars = {"Flins", "Eula", "Kinich", "Torch", "Furina"};
+        String[] chars = {"Flins", "Eula", "Kinich", "Durin", "Furina"};
         
         for (String c : chars) {
             if (message.contains("(" + c + ")") && !c.equals(selectedCharacterName)) {
@@ -373,11 +373,11 @@ public class ClientInterface extends JFrame {
                     
                     // Cambiar color según HP restante
                     if (currentHP > maxHP * 0.5) {
-                        enemyHpBar.setForeground(new Color(255, 50, 100)); // Rosa
+                        enemyHpBar.setForeground(new Color(50, 200, 50)); // Rosa
                     } else if (currentHP > maxHP * 0.25) {
-                        enemyHpBar.setForeground(new Color(255, 150, 0)); // Naranja
+                        enemyHpBar.setForeground(new Color(255, 180, 0)); // Naranja
                     } else {
-                        enemyHpBar.setForeground(new Color(200, 0, 0)); // Rojo oscuro
+                        enemyHpBar.setForeground(new Color(255, 50, 50)); // Rojo oscuro
                     }
                 });
             }

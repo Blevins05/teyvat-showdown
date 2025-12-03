@@ -1,2 +1,5 @@
 /client/
-/img/
+/database/
+/game/
+/server/
+/tests/
