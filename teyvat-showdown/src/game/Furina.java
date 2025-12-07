@@ -49,6 +49,7 @@ public class Furina extends Character {
         this.healthPoints = newHp;
         
         System.out.println("Furina healed herself and has now " + this.healthPoints + "/" + this.maxHp);
+        System.out.println("Furina cleaned up ALL of her negative effects!!");
         
 	}
 }

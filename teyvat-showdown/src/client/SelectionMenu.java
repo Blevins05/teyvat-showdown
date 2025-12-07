@@ -18,7 +18,8 @@ public class SelectionMenu extends JFrame {
     private static final Color BG_COLOR = new Color(30, 30, 40);
     private static final Color SELECTION_COLOR = new Color(50, 50, 60);
     private static final Color ACCENT_COLOR = new Color(0, 200, 255);
-
+    private static final int MENU_WIDTH = 750;
+    private static final int MENU_HEIGHT = 550;
     public SelectionMenu(String serverAddress, int port) {
         
         CHARACTERS.put("Flins", 1);
@@ -29,7 +30,7 @@ public class SelectionMenu extends JFrame {
 
         setTitle("Teyvat Showdown - Setup");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 500);
+        setSize(MENU_WIDTH, MENU_HEIGHT);
         setLocationRelativeTo(null);
         getContentPane().setBackground(BG_COLOR);
         setLayout(new BorderLayout(20, 20));
@@ -62,6 +63,7 @@ public class SelectionMenu extends JFrame {
         return panel;
     }
     
+    // aqui creo los iconos de los pjs
     private JPanel createCharacterSelectionPanel() {
         JPanel selectionPanel = new JPanel(new BorderLayout(10, 10));
         selectionPanel.setBackground(BG_COLOR);
@@ -84,6 +86,7 @@ public class SelectionMenu extends JFrame {
         return selectionPanel;
     }
 
+    // aqui creo los iconos de los pjs
     private JLabel createCharacterIcon(String charName) {
         JLabel icon = new JLabel();
         icon.setPreferredSize(new Dimension(80, 80));
@@ -115,6 +118,7 @@ public class SelectionMenu extends JFrame {
         return icon;
     }
 
+    // para actualizar el index del pj seleccionado y su sprite
     private void updateSelectedCharacterLabel(String charName) {
         for (Component comp : ((JPanel)selectedCharacterLabel.getParent().getComponent(1)).getComponents()) {
             if (comp instanceof JLabel) {
@@ -138,6 +142,7 @@ public class SelectionMenu extends JFrame {
         }
     }
     
+    // para cargar los sprites de los pjs en el menu de seleccion
     private void loadSprite(JLabel label, String characterName, int size) {
          try {
             String path = "img/" + characterName.toLowerCase() + ".png"; 
@@ -160,9 +165,18 @@ public class SelectionMenu extends JFrame {
         }
     }
     
+    // para crear boton de inicio
     private JPanel createStartButtonPanel(String serverAddress, int port) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         panel.setBackground(BG_COLOR);
+        
+        JButton statsButton = new JButton("📊 STATS");
+        statsButton.setFont(new Font("Arial", Font.BOLD, 18));
+        statsButton.setBackground(new Color(100, 100, 200));
+        statsButton.setForeground(Color.WHITE);
+        statsButton.setFocusPainted(false);
+        statsButton.setPreferredSize(new Dimension(150, 50));
+        statsButton.addActionListener(e -> new StatsInterface());
         
         JButton startButton = new JButton("START BATTLE");
         startButton.setFont(new Font("Arial", Font.BOLD, 22));
@@ -170,7 +184,7 @@ public class SelectionMenu extends JFrame {
         startButton.setForeground(Color.WHITE);
         startButton.setFocusPainted(false);
         startButton.setPreferredSize(new Dimension(250, 50));
-
+        
         startButton.addActionListener(e -> {
             String name = nameField.getText().trim();
             if (name.isEmpty()) {
@@ -182,6 +196,7 @@ public class SelectionMenu extends JFrame {
             this.dispose(); 
         });
         
+        panel.add(statsButton);
         panel.add(startButton);
         return panel;
     }
