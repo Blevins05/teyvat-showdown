@@ -1,40 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<games>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><games>
 
 	<game date="2025-12-08" rounds="12">
-		<player character="Kinich" name="Hugo" remaining_hp="46"
-			result="winner" />
-		<player character="Furina" name="Player_Prueba"
-			remaining_hp="0" result="loser" />
+		<player character="Kinich" name="Hugo" remaining_hp="46" result="winner"/>
+		<player character="Furina" name="Player_Prueba" remaining_hp="0" result="loser"/>
 	</game>
 	<game date="2025-12-08" rounds="19">
-		<player character="Durin" name="Hugo" remaining_hp="24"
-			result="winner" />
-		<player character="Furina" name="Player_Prueba"
-			remaining_hp="0" result="loser" />
+		<player character="Durin" name="Hugo" remaining_hp="24" result="winner"/>
+		<player character="Furina" name="Player_Prueba" remaining_hp="0" result="loser"/>
 	</game>
 	<game date="2025-12-08" rounds="11">
-		<player character="Eula" name="Guest" remaining_hp="52"
-			result="winner" />
-		<player character="Durin" name="Guest2" remaining_hp="0"
-			result="loser" />
+		<player character="Eula" name="Guest" remaining_hp="52" result="winner"/>
+		<player character="Durin" name="Guest2" remaining_hp="0" result="loser"/>
 	</game>
 	<game date="2025-12-08" rounds="6">
-		<player character="Durin" name="Hugo" remaining_hp="78"
-			result="winner" />
-		<player character="Kinich" name="Player_Prueba"
-			remaining_hp="0" result="loser" />
+		<player character="Durin" name="Hugo" remaining_hp="78" result="winner"/>
+		<player character="Kinich" name="Player_Prueba" remaining_hp="0" result="loser"/>
 	</game>
 	<game date="2025-12-08" rounds="14">
-		<player character="Eula" name="Hugo" remaining_hp="32"
-			result="winner" />
-		<player character="Flins" name="Guest3" remaining_hp="0"
-			result="loser" />
+		<player character="Eula" name="Hugo" remaining_hp="32" result="winner"/>
+		<player character="Flins" name="Guest3" remaining_hp="0" result="loser"/>
 	</game>
 	<game date="2025-12-08" rounds="14">
-		<player character="Durin" name="Hugo" remaining_hp="17"
-			result="winner" />
-		<player character="Kinich" name="Guest3" remaining_hp="0"
-			result="loser" />
+		<player character="Durin" name="Hugo" remaining_hp="17" result="winner"/>
+		<player character="Kinich" name="Guest3" remaining_hp="0" result="loser"/>
 	</game>
-</games>
+<game date="2025-12-08" rounds="21"><player character="Durin" name="Hugo" remaining_hp="12" result="winner"/><player character="Furina" name="Guest5" remaining_hp="0" result="loser"/></game></games>
