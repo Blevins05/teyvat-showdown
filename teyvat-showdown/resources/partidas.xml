@@ -24,4 +24,8 @@
 		<player character="Durin" name="Hugo" remaining_hp="17" result="winner"/>
 		<player character="Kinich" name="Guest3" remaining_hp="0" result="loser"/>
 	</game>
-<game date="2025-12-08" rounds="21"><player character="Durin" name="Hugo" remaining_hp="12" result="winner"/><player character="Furina" name="Guest5" remaining_hp="0" result="loser"/></game></games>
+	<game date="2025-12-08" rounds="21">
+		<player character="Durin" name="Hugo" remaining_hp="12" result="winner"/>
+		<player character="Furina" name="Guest5" remaining_hp="0" result="loser"/>
+	</game>
+</games>
