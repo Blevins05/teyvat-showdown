@@ -4,10 +4,6 @@ public class Flins extends Character {
 	private double critChance = 0.25;
 	public Flins () {
 		super("Flins", 100, 100, 30, 15, 0.85, Element.ELECTRO, 3, 3);
-		
-		// nerfs que le he hecho porque estaba rotisimo:
-	    // ATK: 32→30
-	    // DEF: 17→15 
 	}
 	
 	public String getName() {
@@ -18,12 +14,11 @@ public class Flins extends Character {
 	protected void performUltimate(Character enemy) {
 		final double flinsDamageMultiplier = 1.8;
 		/*
-		   Electro (Flins)
-			Nombre: Tormenta Eléctrica
+			Flins (Electro)
 			
 			Efecto: Daño alto (1.8× ataque base)
 			
-			Extra: 25% de chance de crítico (doble daño)
+			Extra: 25% de chance de crítico (doble daño), aumenta prob con el tiempo
 			
 			Rol: Daño puro y riesgo de crit, estilo “golpe fuerte y aleatorio”
 			

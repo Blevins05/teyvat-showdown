@@ -9,96 +9,116 @@ import java.util.*;
 // TODO: Arreglar esta mierda (los atributos no estan bien matcheados con el xml, tengo que cambiarlos)
 
 public class StatsReader {
-    private static final String file = "resources/partidas.xml";
-    public static Map<String, Integer> getWins() {
-        Map<String, Integer> wins = new HashMap<>();
-        
-        try {
-            File xmlFile = new File(file);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            
-            NodeList matches = doc.getElementsByTagName("match");
-            
-            for (int i = 0; i < matches.getLength(); i++) {
-                Element match = (Element) matches.item(i);
-                String winner = match.getAttribute("winnerName");
-                wins.put(winner, wins.getOrDefault(winner, 0) + 1);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return wins;
-    }
-    
-    public static Map<String, Integer> getLosses() {
-        Map<String, Integer> losses = new HashMap<>();
-        
-        try {
-            File xmlFile = new File(file);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            
-            NodeList matches = doc.getElementsByTagName("match");
-            
-            for (int i = 0; i < matches.getLength(); i++) {
-                Element match = (Element) matches.item(i);
-                String loser = match.getAttribute("loserName");
-                losses.put(loser, losses.getOrDefault(loser, 0) + 1);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return losses;
-    }
-    
-    public static Map<String, Integer> getMostPlayedCharacters() {
-        Map<String, Integer> characters = new HashMap<>();
-        
-        try {
-            File xmlFile = new File(file);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            
-            NodeList matches = doc.getElementsByTagName("match");
-            
-            for (int i = 0; i < matches.getLength(); i++) {
-                Element match = (Element) matches.item(i);
-                String winnerChar = match.getAttribute("winnerCharacter");
-                String loserChar = match.getAttribute("loserCharacter");
-                
-                characters.put(winnerChar, characters.getOrDefault(winnerChar, 0) + 1);
-                characters.put(loserChar, characters.getOrDefault(loserChar, 0) + 1);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return characters;
-    }
-    
-    public static void printStats() {
-        System.out.println("=== PLAYER STATS ===");
-        
-        Map<String, Integer> wins = getWins();
-        Map<String, Integer> losses = getLosses();
-        
-        System.out.println("\n--- WINS ---");
-        wins.forEach((player, count) -> System.out.println(player + ": " + count));
-        
-        System.out.println("\n--- LOSSES ---");
-        losses.forEach((player, count) -> System.out.println(player + ": " + count));
-        
-        System.out.println("\n--- MOST PLAYED CHARACTERS ---");
-        Map<String, Integer> chars = getMostPlayedCharacters();
-        chars.forEach((character, count) -> System.out.println(character + ": " + count));
-    }
+	private static final String file = "resources/partidas.xml";
+	
+	private static Document loadDocument() throws Exception {
+	    File xmlFile = new File(file);
+	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    return builder.parse(xmlFile);
+	}
+
+	public static Map<String, Integer> getWins() {
+	    Map<String, Integer> wins = new HashMap<>();
+
+	    try {
+	        Document doc = loadDocument();
+	        NodeList games = doc.getElementsByTagName("game");
+
+	        for (int i = 0; i < games.getLength(); i++) {
+	            Element game = (Element) games.item(i);
+	            NodeList players = game.getElementsByTagName("player");
+
+	            for (int j = 0; j < players.getLength(); j++) {
+	                Element player = (Element) players.item(j);
+
+	                if ("winner".equals(player.getAttribute("result"))) {
+	                    String name = player.getAttribute("name");
+	                    wins.put(name, wins.getOrDefault(name, 0) + 1);
+	                }
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return wins;
+	}
+
+	public static Map<String, Integer> getLosses() {
+	    Map<String, Integer> losses = new HashMap<>();
+
+	    try {
+	        Document doc = loadDocument();
+	        NodeList games = doc.getElementsByTagName("game");
+
+	        for (int i = 0; i < games.getLength(); i++) {
+	            Element game = (Element) games.item(i);
+	            NodeList players = game.getElementsByTagName("player");
+
+	            for (int j = 0; j < players.getLength(); j++) {
+	                Element player = (Element) players.item(j);
+
+	                if ("loser".equals(player.getAttribute("result"))) {
+	                    String name = player.getAttribute("name");
+	                    losses.put(name, losses.getOrDefault(name, 0) + 1);
+	                }
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return losses;
+	}
+
+	public static Map<String, Map<String, Integer>> getCharactersPerPlayer() {
+	    Map<String, Map<String, Integer>> charsPerPlayer = new HashMap<>();
+
+	    try {
+	        Document doc = loadDocument();
+	        NodeList games = doc.getElementsByTagName("game");
+
+	        for (int i = 0; i < games.getLength(); i++) {
+	            Element game = (Element) games.item(i);
+	            NodeList players = game.getElementsByTagName("player");
+
+	            for (int j = 0; j < players.getLength(); j++) {
+	                Element player = (Element) players.item(j);
+
+	                String name = player.getAttribute("name");
+	                String character = player.getAttribute("character");
+
+	                charsPerPlayer.putIfAbsent(name, new HashMap<>());
+	                Map<String, Integer> map = charsPerPlayer.get(name);
+
+	                map.put(character, map.getOrDefault(character, 0) + 1);
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return charsPerPlayer;
+	}
+
+	public static String getMainCharacter(String playerName, Map<String, Map<String, Integer>> charsPerPlayer) {
+	    if (!charsPerPlayer.containsKey(playerName)) return "";
+
+	    String main = "";
+	    int max = 0;
+
+	    for (Map.Entry<String, Integer> entry : charsPerPlayer.get(playerName).entrySet()) {
+	        if (entry.getValue() > max) {
+	            main = entry.getKey();
+	            max = entry.getValue();
+	        }
+	    }
+
+	    return main;
+	}
+
 }

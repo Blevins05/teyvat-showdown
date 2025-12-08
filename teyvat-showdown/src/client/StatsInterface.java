@@ -2,7 +2,10 @@ package client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import database.StatsReader;
 
 public class StatsInterface extends JFrame {
@@ -34,43 +37,30 @@ public class StatsInterface extends JFrame {
         
         Map<String, Integer> wins = StatsReader.getWins();
         Map<String, Integer> losses = StatsReader.getLosses();
-        Map<String, Integer> characters = StatsReader.getMostPlayedCharacters();
-        
+        Map<String, Map<String, Integer>> charsPerPlayer = StatsReader.getCharactersPerPlayer();
+
         StringBuilder sb = new StringBuilder();
-        
-        if (wins.isEmpty() && losses.isEmpty()) {
-            sb.append("No games played yet...\n\n");
-            sb.append("Play some matches to see your stats!");
-        } else {
-            for (String player : wins.keySet()) {
-                int w = wins.getOrDefault(player, 0);
-                int l = losses.getOrDefault(player, 0);
-                
-                String mostPlayed = "";
-                int maxPlays = 0;
-                for (Map.Entry<String, Integer> entry : characters.entrySet()) {
-                    if (entry.getValue() > maxPlays) {
-                        mostPlayed = entry.getKey();
-                        maxPlays = entry.getValue();
-                    }
-                }
-                
-                sb.append("Player: ").append(player).append("\n");
-                sb.append("Record: ").append(w).append("W / ").append(l).append("L\n");
-                if (!mostPlayed.isEmpty()) {
-                    sb.append("Main: ").append(mostPlayed).append("\n");
-                }
-                sb.append("\n");
+
+        Set<String> allPlayers = new HashSet<>();
+        allPlayers.addAll(wins.keySet());
+        allPlayers.addAll(losses.keySet());
+
+        for (String player : allPlayers) {
+            int w = wins.getOrDefault(player, 0);
+            int l = losses.getOrDefault(player, 0);
+
+            String mainChar = StatsReader.getMainCharacter(player, charsPerPlayer);
+
+            sb.append("Player: ").append(player).append("\n");
+            sb.append("Record: ").append(w).append("/").append(l).append("\n");
+
+            if (!mainChar.isEmpty()) {
+                sb.append("Most Played: ").append(mainChar).append("\n");
             }
-            
-            for (String player : losses.keySet()) {
-                if (!wins.containsKey(player)) {
-                    int l = losses.get(player);
-                    sb.append("Player: ").append(player).append("\n");
-                    sb.append("Record: 0W / ").append(l).append("L\n\n");
-                }
-            }
+
+            sb.append("\n");
         }
+
         
         statsArea.setText(sb.toString());
         

@@ -82,7 +82,7 @@ public class Main {
             case 1: return new Flins();
             case 2: return new Eula();
             case 3: return new Kinich();
-            case 4: return new Torch();
+            case 4: return new Durin();
             case 5: return new Furina();
             default:
                 System.out.println("Invalid choice! Defaulting to Flins.");

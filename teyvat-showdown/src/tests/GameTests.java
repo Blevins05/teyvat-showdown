@@ -5,7 +5,7 @@ import game.Flins;
 import game.Furina;
 import game.Item;
 import game.Kinich;
-import game.Torch;
+import game.Durin;
 
 
 
@@ -22,7 +22,7 @@ public class GameTests {
         c1 = new Flins();
         c2 = new Eula();
         c3 = new Kinich();
-        c4 = new Torch();
+        c4 = new Durin();
         c5 = new Furina();
         
         // Test 1: Ataque básico

@@ -12,7 +12,7 @@ import game.Eula;
 import game.Flins;
 import game.Furina;
 import game.Kinich;
-import game.Torch;
+import game.Durin;
 
 public class PlayerHandler implements Runnable {
 	
@@ -73,13 +73,13 @@ public class PlayerHandler implements Runnable {
         sendMessage("   HP: 100 | ATK: 26 | DEF: 17");
         sendMessage("");
         sendMessage("2. Eula (Cryo) - Control/Freeze");
-        sendMessage("   HP: 110 | ATK: 23 | DEF: 20");
+        sendMessage("   HP: 120 | ATK: 23 | DEF: 20");
         sendMessage("");
         sendMessage("3. Kinich (Dendro) - Poisoner");
-        sendMessage("   HP: 98 | ATK: 23 | DEF: 20");
-        sendMessage("");
-        sendMessage("4. Torch (Pyro) - Scaling");
         sendMessage("   HP: 105 | ATK: 23 | DEF: 20");
+        sendMessage("");
+        sendMessage("4. Durin (Pyro) - Scaling");
+        sendMessage("   HP: 105 | ATK: 25 | DEF: 20");
         sendMessage("");
         sendMessage("5. Furina (Hydro) - Support/Healer");
         sendMessage("   HP: 125 | ATK: 20 | DEF: 24");
@@ -91,7 +91,7 @@ public class PlayerHandler implements Runnable {
             case "1": return new Flins();
             case "2": return new Eula();
             case "3": return new Kinich();
-            case "4": return new Torch();
+            case "4": return new Durin();
             case "5": return new Furina();
             default:
                 sendMessage("Invalid input. Default character is Flins");

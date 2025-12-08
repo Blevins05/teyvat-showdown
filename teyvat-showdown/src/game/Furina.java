@@ -4,7 +4,7 @@ public class Furina extends Character {
 	public Furina() {
 		   super("Furina", 125, 125, 20, 24, 0.90, Element.HYDRO, 3, 3);
 		   
-		    // nuevos buffs a furina:
+		    // Buffs a Furina
 		    // HP: 120→125 
 		    // DEF: 23→24 
 		    // Añadida una pasiva unica, su daño es inversamente proporcional a su vida
@@ -27,17 +27,15 @@ public class Furina extends Character {
 	@Override
 	protected void performUltimate(Character enemy) {
 		/*  
-		 Ulti de Furina:
-		 
-		 Nombre: Ola Vital
+		Furina (Hydro)
 
 		Efecto: Cura propia vida (25–35% HP) y da un golpe de daño base: 1x
 		
-		Extra: Puede limpiar estados negativos como “quemado”, “congelado” o "bloom"
+		Extra: Limpia todos los efectos negativos
 		
 		Rol: Soporte / supervivencia, permite mantenerse en la batalla más tiempo
 
-		 * */
+		*/
 		int baseDamage = this.getBaseDamage(enemy);
 		enemy.takeDamage(baseDamage);
 		activeEffects.removeIf(e -> e instanceof Burn || e instanceof Bloom || e instanceof Freeze);

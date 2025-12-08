@@ -2,15 +2,17 @@ package game;
 
 public class Kinich extends Character{
 	public Kinich() {
-		   super("Kinich", 98, 98, 23, 20, 0.92, Element.DENDRO, 2, 2);
+		   super("Kinich", 105, 105, 23, 20, 0.92, Element.DENDRO, 3, 3);
+		   
+		   // Cambios a Kinich:
+		   // Cooldown de la ultimate: 2 -> 3 turnos (estaba rotisimo)
+		   // Vida: 98 -> 105
 	}
 
 	@Override
 	protected void performUltimate(Character enemy) {
 		/* 
-		 * Dendro
-
-			Nombre: Esporas Tóxicas
+		 *  Kinich (Dendro)
 			
 			Efecto: Daño bajo-moderado (1.1× ataque base)
 			

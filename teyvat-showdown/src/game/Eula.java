@@ -4,12 +4,11 @@ public class Eula extends Character {
 	private double freezeChance; // solo para Eula
 	
 	public Eula () {
-		super("Eula", 115, 115, 23, 20, 0.85, Element.CRYO, 2, 2);
+		super("Eula", 120, 120, 23, 20, 0.85, Element.CRYO, 2, 2);
 		this.freezeChance = 0.30;
 		
-		// nuevos buffs a eula:
-		// HP: 110→115 
-	    // DEF: 20→22 
+		// Cambios a Eula:
+		// Vida: 115 -> 120
 	}
 	
 	public String getName() {
@@ -20,13 +19,11 @@ public class Eula extends Character {
 	protected void performUltimate(Character enemy) {
 		final double eulaDamageMultiplier = 1.3;
 		/* 
-		 Cryo
-			
-			Nombre: Congelación Ártica
+		 Eula (Cryo)
 			
 			Efecto: Daño moderado (1.3× ataque base)
 			
-			Extra: 30% de probabilidad de congelar al enemigo 1 turno
+			Extra: 30% de probabilidad de congelar al enemigo 1 turno (con el tiempo va aumentando esa prob)
 			
 			Rol: Control de enemigo, ralentizar o impedir acción
 		 * */
