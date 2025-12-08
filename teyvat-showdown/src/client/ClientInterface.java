@@ -1,7 +1,14 @@
 package client; 
 
 import javax.swing.*;
-import game.Item; 
+
+import game.Durin;
+import game.Eula;
+import game.Flins;
+import game.Furina;
+import game.Item;
+import game.Kinich;
+
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
@@ -78,11 +85,11 @@ public class ClientInterface extends JFrame {
         inventory.add(Item.MEDIUM_POTION);
         inventory.add(Item.LARGE_POTION);
         
-        maxHPs.put("Flins", 100);
-        maxHPs.put("Eula", 115);
-        maxHPs.put("Kinich", 98);
-        maxHPs.put("Durin", 105); 
-        maxHPs.put("Furina", 125);
+        maxHPs.put("Flins", new Flins().getMaxHp());
+        maxHPs.put("Eula", new Eula().getMaxHp());
+        maxHPs.put("Kinich", new Kinich().getMaxHp());
+        maxHPs.put("Durin", new Durin().getMaxHp()); 
+        maxHPs.put("Furina", new Furina().getMaxHp());
         
         this.playerName = name;
         this.selectedCharacterName = characterName;

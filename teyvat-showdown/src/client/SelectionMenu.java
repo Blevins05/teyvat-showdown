@@ -28,7 +28,7 @@ public class SelectionMenu extends JFrame {
         CHARACTERS.put("Durin", 4); 
         CHARACTERS.put("Furina", 5);
 
-        setTitle("Teyvat Showdown - Setup");
+        setTitle("Teyvat Showdown - Menu");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(MENU_WIDTH, MENU_HEIGHT);
         setLocationRelativeTo(null);
@@ -165,12 +165,12 @@ public class SelectionMenu extends JFrame {
         }
     }
     
-    // para crear boton de inicio
+    // para crear botones de inicio
     private JPanel createStartButtonPanel(String serverAddress, int port) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         panel.setBackground(BG_COLOR);
         
-        JButton statsButton = new JButton("📊 STATS");
+        JButton statsButton = new JButton("STATS");
         statsButton.setFont(new Font("Arial", Font.BOLD, 18));
         statsButton.setBackground(new Color(100, 100, 200));
         statsButton.setForeground(Color.WHITE);
