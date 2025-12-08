@@ -9,6 +9,7 @@ import database.MatchHistory;
 import game.Character;
 import game.Item;
 
+// partida online (lo que se ejecuta por dentro)
 public class OnlineBattle {
 	private PlayerHandler player1Handler;
 	private PlayerHandler player2Handler;
@@ -19,7 +20,6 @@ public class OnlineBattle {
 	private int totalTurns;
 
 	public OnlineBattle(PlayerHandler player1, PlayerHandler player2) {
-		// TODO Auto-generated constructor stub
 		player1Handler = player1;
 		player2Handler = player2;
 		p1 = player1.getCharacter();
@@ -30,8 +30,6 @@ public class OnlineBattle {
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
-
 		if (currentCharacter == p1) {
 			broadcast(player1Handler.getPlayerName() + "(" + p1.getName() + ")" + " starts");
 		} else {
@@ -87,7 +85,8 @@ public class OnlineBattle {
 				}
 			}
 		}
-
+		
+		// procesar efectos devuelve un bool ya que la ulti de eula puede o no congelar, por lo que lo manejo asi
 		if (skipped) {
 			currentHandler.sendMessage("You were frozen by Eula and you lost your turn...");
 			opponentHandler.sendMessage(currentCharacter.getName() + "(" + currentHandler.getPlayerName() + ")"
@@ -106,7 +105,6 @@ public class OnlineBattle {
 				String choice = currentHandler.receiveMessage();
 				actionTaken = processAction(choice, currentCharacter, opponent, currentHandler, opponentHandler);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				if (!currentHandler.getSocket().isClosed()) {
 					currentHandler.sendMessage(
@@ -223,7 +221,8 @@ public class OnlineBattle {
 
 		int rounds = (int) Math.floor(totalTurns / 2 + 1);
 		broadcast("Total Game Rounds: " + rounds);
-
+		
+		// guardamos las estadísticas de la partida
 		MatchHistory.saveMatch(winnerName, winner.getName(), loserName, loser.getName(), "winner", "loser", winnerHP, 0,
 				rounds);
 	}

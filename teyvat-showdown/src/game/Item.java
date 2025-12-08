@@ -1,5 +1,6 @@
 package game;
 
+// items del juego
 public enum Item {
 	SMALL_POTION(20),
     MEDIUM_POTION(40),

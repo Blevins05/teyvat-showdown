@@ -20,7 +20,7 @@ public class Flins extends Character {
 			
 			Extra: 25% de chance de crítico (doble daño), aumenta prob con el tiempo
 			
-			Rol: Daño puro y riesgo de crit, estilo “golpe fuerte y aleatorio”
+			Rol: DPS puro
 			
 		 */
 		

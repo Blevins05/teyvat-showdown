@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+// clase base para definir a un personaje
 public abstract class Character {
 	protected String name;
 	protected Integer healthPoints;
@@ -17,6 +17,7 @@ public abstract class Character {
 	protected ArrayList<Effect> activeEffects = new ArrayList<>();
 	protected ArrayList<Item> inventory = new ArrayList<>();
 
+	// los atributos son: nombre, vida, vidaMaxima, ataque base, defensa, precision de ataque, elemento, turnos restantes hasta ulti, cooldown de la ulti, efectos activos e inventario.
 
 	public Character(String name, int maxHp, int hp, int atk, int def, double precision, Element element, int turnsRemaining, int ultimateCooldown) {
 		this.name = name;
@@ -112,7 +113,7 @@ public abstract class Character {
 	    }
 	    
 	    int baseDamage = getBaseDamage(target);
-	    double randomFactor = 0.9 + Math.random() * 0.2; // 90%-110%
+	    double randomFactor = 0.9 + Math.random() * 0.2; // 90%-110% (es decir, el ataque puede variar un +-10%)
 	    int damage = (int) (baseDamage * randomFactor);
 	    
 	    System.out.println(": " + this.getName() + " attacks " + target.getName() + " and deals " + damage + " damage");
@@ -157,6 +158,7 @@ public abstract class Character {
 		return this.healthPoints <= 0;
 	}
 	
+	// controla que la ulti se pueda usar (si te equivocas, pasa el turno al contrario, hay que tener cuidado)
 	public void ultimate(Character enemy) {
 	    if (turnsUntilUltimate > 0) {
 	        System.out.println(this.getClass().getSimpleName() + " cant use the ultimate, " + turnsUntilUltimate + "more turn(s) remaining.");
@@ -167,14 +169,15 @@ public abstract class Character {
 
 	    turnsUntilUltimate = ultimateCooldown;
 	}
-
+	
+	// ejecuta una ultimate del personaje (cada personaje tiene su ulti, por lo que es abstracto)
 	protected abstract void performUltimate(Character enemy);
 	
-	// solucionado este bug, el efecto se aplica en cada ronda, no al añadirlo a los efectos activos del pj.
 	public void applyEffect(Effect effect) {
 	    activeEffects.add(effect);
 	}
 	
+	// procesa y aplica los efectos activos sobre los personajes
 	public boolean processEffects() {
 	    boolean loseTurn = false;
 	    Iterator<Effect> iterator = activeEffects.iterator();

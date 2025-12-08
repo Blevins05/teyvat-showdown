@@ -1,5 +1,6 @@
 package game;
 
+// efecto de veneno/florecimiento: tras una ulti de Kinich, los 3 proximos turnos el enemigo está envenenado y pierde 10HP en cada uno
 public class Bloom extends Effect {
 private int damagePerTurn;
 	

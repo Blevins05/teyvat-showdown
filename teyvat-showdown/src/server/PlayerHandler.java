@@ -14,6 +14,7 @@ import game.Furina;
 import game.Kinich;
 import game.Durin;
 
+// clase manejador de un jugador (viene a ser el "AtenderPeticion")
 public class PlayerHandler implements Runnable {
 	
 	private String playerName;
@@ -30,7 +31,7 @@ public class PlayerHandler implements Runnable {
 		try 
 		{
 			in = new BufferedReader(new InputStreamReader(player.getInputStream()));
-			out = new PrintWriter(new OutputStreamWriter(player.getOutputStream()), true); // asi no hay q estar haciendo flush cada 2x3
+			out = new PrintWriter(new OutputStreamWriter(player.getOutputStream()), true); // hace auto flush gracias al segundo parametro
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -38,19 +39,13 @@ public class PlayerHandler implements Runnable {
 	
 	@Override
 	public void run() { 	
-		// TODO Auto-generated method stub
 		try {
-
             sendMessage("Connected to server!\n");
-            
-            
+                     
             sendMessage("Please enter your name");
             String playerName = in.readLine();
             this.playerName = playerName;
             sendMessage("Welcome " + this.playerName);
-            
-            
-            
             
             selectedCharacter = selectCharacter();
             

@@ -3,6 +3,7 @@ package game;
 import java.util.List;
 import java.util.Scanner;
 
+// partida en consola para un jugador (obsoleto)
 public class Battle {
 	private Character player1;
 	private Character player2;

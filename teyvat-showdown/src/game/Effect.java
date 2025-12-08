@@ -1,5 +1,6 @@
 package game;
 
+// clase base para un efecto y sus comportamientos
 	public abstract class Effect {
 	    protected int duration;
 

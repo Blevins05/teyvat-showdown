@@ -34,7 +34,7 @@ public class Matchmaking {
 	private void startBattle(PlayerHandler player1, PlayerHandler player2) {
 		// TODO Auto-generated method stub
 		
-		// basicamente esto crea un thread, despues dentro crea una instancia de partidaOnline y empieza una nueva partida
+		// basicamente esto crea un thread, despues dentro crea una partida online y empieza una nueva partida
 		Thread battleThread = new Thread(() -> { 
 			OnlineBattle ob = new OnlineBattle(player1, player2);
 			ob.start();

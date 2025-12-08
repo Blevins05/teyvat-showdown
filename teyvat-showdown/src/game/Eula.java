@@ -25,7 +25,7 @@ public class Eula extends Character {
 			
 			Extra: 30% de probabilidad de congelar al enemigo 1 turno (con el tiempo va aumentando esa prob)
 			
-			Rol: Control de enemigo, ralentizar o impedir acción
+			Rol: Personaje de late game, va escalando su prob de congelacion con el tiempo
 		 * */
 		
 		int baseDamage = this.getBaseDamage(enemy);

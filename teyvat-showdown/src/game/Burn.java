@@ -1,5 +1,6 @@
 package game;
 
+// efecto de quemadura: tras una ulti de Durin, el enemigo es quemado y pierde 5 de vida durante 2 turnos. 
 public class Burn extends Effect{
 	private int damagePerTurn;
 	

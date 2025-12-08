@@ -8,7 +8,7 @@ import game.Kinich;
 import game.Durin;
 
 
-
+// tests manuales que cree en su dia para ver que todo iba bien pero estan obsoletos
 public class GameTests {
 
     private static Character c1, c2, c3, c4, c5;

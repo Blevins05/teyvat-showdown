@@ -1,9 +1,9 @@
 package game;
-
+// elementos de los personajes
 public enum Element {
-	PYRO,
-	HYDRO,
-	ELECTRO,
-	DENDRO,
-	CRYO
+	PYRO, // Durin
+	HYDRO, // Furina
+	ELECTRO, // Flins
+	DENDRO, // Kinich
+	CRYO // Eula
 }

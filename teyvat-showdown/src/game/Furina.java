@@ -33,7 +33,7 @@ public class Furina extends Character {
 		
 		Extra: Limpia todos los efectos negativos
 		
-		Rol: Soporte / supervivencia, permite mantenerse en la batalla más tiempo
+		Rol: Support Puro, tiene demasiada vida y se cura (lo balancea con su bajo ataque)
 
 		*/
 		int baseDamage = this.getBaseDamage(enemy);

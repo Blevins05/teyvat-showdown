@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+// Historial de partidas, guarda las partidas en el XML (como si fuera una bd)
 public class MatchHistory {
 	private static final String XML_FILE = "resources/partidas.xml";
 	
@@ -72,13 +73,10 @@ public class MatchHistory {
 			} catch (TransformerException ex) {
 				ex.printStackTrace();
 			} catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		

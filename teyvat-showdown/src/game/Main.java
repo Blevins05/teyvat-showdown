@@ -2,6 +2,7 @@ package game;
 
 import java.util.Scanner;
 
+// main para jugar una partida (1 solo jugador) esta obsoleto también
 public class Main {
     
     private static Scanner scanner = new Scanner(System.in);
@@ -9,17 +10,14 @@ public class Main {
     public static void main(String[] args) {
         showWelcome();
         
-        // Selección Player 1
         System.out.println("PLAYER 1 - Choose your fighter:");
         Character player1 = selectCharacter();
         System.out.println("\nPlayer 1 selected: " + player1.getName() + " [" + player1.getElement() + "]\n");
         
-        // Selección Player 2
         System.out.println("PLAYER 2 - Choose your fighter:");
         Character player2 = selectCharacter();
         System.out.println("\nPlayer 2 selected: " + player2.getName() + " [" + player2.getElement() + "]\n");
-        
-        // Iniciar batalla
+
         System.out.println("Press Enter to start the battle...");
         scanner.nextLine();
         
@@ -41,7 +39,7 @@ public class Main {
         System.out.println("elemental reactions and abilities");
         System.out.println();
     }
-    
+    // las estadisticas de los pjs no están actualizadas
     private static Character selectCharacter() {
         System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         System.out.println("1. Flins (Electro) - Crit DPS");

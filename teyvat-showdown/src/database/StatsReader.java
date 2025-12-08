@@ -5,8 +5,7 @@ import javax.xml.parsers.*;
 import java.io.File;
 import java.util.*;
 
-// Un simple contador de estadisticas usando un arbol DOM: Cuenta V/D por jugador y personaje(s) mas jugados
-// TODO: Arreglar esta mierda (los atributos no estan bien matcheados con el xml, tengo que cambiarlos)
+// Un simple contador de estadisticas usando un arbol DOM: Cuenta V/D por jugador y personaje mas jugado
 
 public class StatsReader {
 	private static final String file = "resources/partidas.xml";

@@ -8,6 +8,7 @@ import java.util.Set;
 
 import database.StatsReader;
 
+// UI para el display de las estadísticas (consultar V/D y personaje mas jugado)
 public class StatsInterface extends JFrame {
     
 	private static final Color BG_COLOR = new Color(30, 30, 40);

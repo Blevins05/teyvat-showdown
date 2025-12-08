@@ -27,8 +27,8 @@ public class ClientInterface extends JFrame {
     private String playerName;
     private String selectedCharacterName;
     private String opponentCharacterName = null;
-    private Map<String, Integer> maxHPs = new HashMap<>(); 
-    private List<Item> inventory = new ArrayList<>(); 
+    private Map<String, Integer> maxHPs = new HashMap<>(); // esto es para poder gestionar bien la vida en las barras de HP
+    private List<Item> inventory = new ArrayList<>(); // replica del inventario
 
     private JProgressBar playerHpBar, enemyHpBar;
     private JProgressBar playerUltBar, enemyUltBar;
@@ -80,6 +80,7 @@ public class ClientInterface extends JFrame {
         }
     }
     
+    // Constructor
     public ClientInterface(String serverAddress, int port, String name, String characterName, int characterIndex) {
         inventory.add(Item.SMALL_POTION);
         inventory.add(Item.MEDIUM_POTION);
@@ -103,7 +104,7 @@ public class ClientInterface extends JFrame {
             out.println(characterIndex);
             
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo conectar al servidor\n" + serverAddress + ":" + port);
+            JOptionPane.showMessageDialog(this, "Unable to connect to server\n" + serverAddress + ":" + port);
             System.exit(0);
         }
         
@@ -152,6 +153,7 @@ public class ClientInterface extends JFrame {
         playerUltBar.setPreferredSize(new Dimension(300, 20));
         playerUltBar.setFont(new Font("Consolas", Font.BOLD, 12));
         
+        // panel de los efectos de un personaje (saldra si esta quemado, etc...)
         playerEffectsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         playerEffectsPanel.setOpaque(false);
         playerEffectsPanel.setPreferredSize(new Dimension(200, 30));
@@ -179,6 +181,7 @@ public class ClientInterface extends JFrame {
         enemyUltBar.setPreferredSize(new Dimension(300, 20));
         enemyUltBar.setFont(new Font("Consolas", Font.BOLD, 12));
         
+        // panel de los efectos de un personaje enemigo (saldra si esta quemado, etc...)
         enemyEffectsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         enemyEffectsPanel.setOpaque(false);
         enemyEffectsPanel.setPreferredSize(new Dimension(200, 30));
@@ -204,7 +207,8 @@ public class ClientInterface extends JFrame {
         panel.add(enemyHPPanel);
         return panel;
     }
-
+    
+    // para crear un componente que represente una barra (HP/Ulti)
     private JProgressBar createProgressBar(int maxHp, Color color) {
         JProgressBar bar = new JProgressBar(0, maxHp);
         bar.setValue(maxHp);
@@ -217,6 +221,7 @@ public class ClientInterface extends JFrame {
         return bar;
     }
     
+    // aqui creo el panel de juego (el escenario de la partida)
     private JPanel createArenaPanel() {
         BackgroundPanel panel = new BackgroundPanel("img/arena_bg.jpg");
 
@@ -225,7 +230,7 @@ public class ClientInterface extends JFrame {
         playerSprite.setBounds(100, 150, 250, 250);
         panel.add(playerSprite);
 
-        enemySprite = new JLabel("⚔");
+        enemySprite = new JLabel("⚔"); // fallback por si no cargase el sprite de un personaje
         enemySprite.setFont(new Font("Arial", Font.BOLD, 120));
         enemySprite.setForeground(Color.RED);
         enemySprite.setHorizontalAlignment(SwingConstants.CENTER);
@@ -251,6 +256,7 @@ public class ClientInterface extends JFrame {
         return panel;
     }
     
+    // panel de batalla de un jugador (desde aqui podra atacar o abrir su inventario)
     private JPanel createControlPanel() {
         JPanel bottomPanel = new JPanel(new BorderLayout(10, 10));
         bottomPanel.setBackground(BG_COLOR);
@@ -340,12 +346,12 @@ public class ClientInterface extends JFrame {
     
     private void updateUltimateBar(JProgressBar ultBar, int turnsRemaining, int maxCooldown) {
         SwingUtilities.invokeLater(() -> {
-            ultBar.setMaximum(maxCooldown);
+            ultBar.setMaximum(maxCooldown); // el cooldown maximo es 3 turnos (algunos personajes tienen 2)
             
             if (turnsRemaining == 0) {
 
                 ultBar.setValue(0);
-                ultBar.setString("ULTIMATE READY!");
+                ultBar.setString("CHARGED!");
                 ultBar.setForeground(new Color(255, 215, 0));
             } else {
                 int progress = maxCooldown - turnsRemaining;
@@ -411,6 +417,7 @@ public class ClientInterface extends JFrame {
         timer.start();
     }
     
+    // para añadir el efecto cuando un pj se encuentra bajo un efecto negativo
     private void addEffectIcon(JPanel effectsPanel, String effect) {
         String text = "";
         Color color = Color.WHITE;
@@ -552,7 +559,7 @@ public class ClientInterface extends JFrame {
             }
         } catch (IOException e) {
             log("\nDisconnected from server");
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Conexión perdida con el servidor.", "Error de Conexión", JOptionPane.ERROR_MESSAGE));
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "Connection with server lost", "Connection Error", JOptionPane.ERROR_MESSAGE));
         }
     }
     
@@ -783,7 +790,7 @@ public class ClientInterface extends JFrame {
             label.setFont(new Font("Arial", Font.BOLD, size / 2));
             label.setForeground(fallbackColor);
         }
-    }
+    }  // los emojis son fallback por si no carga el pj
     
     // para cargar el sprite de nuestro oponente
     private void detectAndLoadOpponent(String message) {
@@ -822,6 +829,7 @@ public class ClientInterface extends JFrame {
             int hpIndex = message.indexOf("HP");
             if (hpIndex == -1) return;
             
+            // splits complicado, necesite ayuda
             String hpPart = message.substring(hpIndex + 3).split("\\|")[0].trim();
             String[] hpValues = hpPart.split("/");
             int currentHP = Integer.parseInt(hpValues[0].trim());
@@ -853,7 +861,7 @@ public class ClientInterface extends JFrame {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {} // ignoro la excepcion, en algunos casos he hecho esto
         
         SwingUtilities.invokeLater(() -> new SelectionMenu("localhost", 8080));
     }
